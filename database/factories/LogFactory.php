@@ -27,6 +27,7 @@ class LogFactory extends Factory
             'action' => $this->faker->regexify('[A-Za-z0-9]{15}'),
             'status' => $this->faker->randomElement(["SUCCESS","ERROR"]),
             'employee_id' => Employee::factory(),
+            'error_message' => $this->faker->sentence(),
         ];
     }
 }

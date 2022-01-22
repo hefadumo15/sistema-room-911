@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,9 +29,23 @@ Route::get('/register', function () {
     return redirect('login');
 });
 
-
 Route::controller(AdminController::class)->middleware(['auth'])->group(function () {
     Route::group(['middleware' => ['role:super-admin']], function () {
         Route::get('/user', 'index');
     });
 });
+
+Route::get('/room-911',  [
+    RoomController::class,
+    'index'
+]);
+
+Route::post('/room/register', [
+    RoomController::class,
+    'register'
+])->name('room.register');
+
+Route::post('/room/exit', [
+    RoomController::class,
+    'exit'
+])->name('room.exit');

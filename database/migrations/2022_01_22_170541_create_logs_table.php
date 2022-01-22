@@ -17,7 +17,8 @@ class CreateLogsTable extends Migration
             $table->id();
             $table->string('action', 15);
             $table->enum('status', ["SUCCESS","ERROR"]);
-            $table->unsignedBigInteger('employee_id');
+            $table->string('error_message');
+            $table->unsignedBigInteger('employee_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

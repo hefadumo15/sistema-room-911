@@ -19,6 +19,7 @@ class Log extends Model
         'action',
         'status',
         'employee_id',
+        'error_message',
     ];
 
     /**

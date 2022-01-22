@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +22,15 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
+
+Route::get('/register', function () {
+    return redirect('login');
+});
+
+
+Route::controller(AdminController::class)->middleware(['auth'])->group(function () {
+    Route::group(['middleware' => ['role:super-admin']], function () {
+        Route::get('/user', 'index');
+    });
+});

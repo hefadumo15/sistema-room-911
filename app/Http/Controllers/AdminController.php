@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -13,7 +14,10 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        $employees = Employee::all(['id','name','last_name','identification','phone','addres']);
+
+        // return view('welcome');
+        return response()->json($employees);
     }
 
     /**
@@ -34,7 +38,10 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $employee = Employee::create($request->post());
+        return response()->json([
+            'employee' => $employee
+        ]);
     }
 
     /**
@@ -43,9 +50,9 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Employee $employee)
     {
-        //
+        return response()->json($employee);
     }
 
     /**
@@ -66,9 +73,12 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Employee $employee)
     {
-        //
+        $employee->fill($request->post())->save();
+        return response()->json([
+            'employee' => $employee
+        ]);
     }
 
     /**
@@ -77,8 +87,11 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Employee $employee)
     {
-        //
+        $employee->delete();
+        return response()->json([
+            'message' => '¡Record deleted successfully!'
+        ]);
     }
 }

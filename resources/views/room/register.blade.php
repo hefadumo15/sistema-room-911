@@ -16,12 +16,12 @@
                     </div>
                 @endif
 
-                @if ($name)
+                {{--  @if ($name)
                     <div class="text-green-500 mb-4">
                         {{ $name }} <br>
                         {{ $message }}
                     </div>
-                @endif
+                @endif  --}}
 
                 <form action="{{ url('room/register') }}" method="POST">
                     @csrf

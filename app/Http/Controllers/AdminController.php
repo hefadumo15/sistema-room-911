@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -14,7 +16,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $employees = Employee::all(['id','name','last_name','identification','phone','addres']);
+        $employees = Employee::all(['id', 'name', 'last_name', 'identification', 'phone', 'addres']);
 
         // return view('welcome');
         return response()->json($employees);
@@ -38,7 +40,22 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        $employee = Employee::create($request->post());
+
+        $user = User::create([
+            'name' => $request->name . "." . $request->last_name,
+            'email' => $request->email,
+            'password' => Hash::make(substr($request->name, 0, 1) . substr($request->last_name, 0, 1) . $request->identification)
+        ]);
+
+        $employee = Employee::create([
+            'name' => $request->name,
+            'last_name' => $request->last_name,
+            'identification' => $request->identification,
+            'phone' => $request->phone,
+            'addres' => $request->addres,
+            'user_id' => $user->id,
+        ]);
+
         return response()->json([
             'employee' => $employee
         ]);

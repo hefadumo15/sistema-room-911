@@ -3,13 +3,13 @@
 1. Clonar el repositorio de GitHub
 
 ```bash
-git clone https://github.com/hefadumo15/prueba-laravel.git
+git clone https://github.com/hefadumo15/sistema-room-911.git
 ```
 
 2. Acceder a la carpeta del repositorio
 
 ```bash
-cd prueba-laravel
+cd sistema-room-911
 ```
 
 3. Instalar dependencias
